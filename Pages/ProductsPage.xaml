@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProductInventoryTestApp.Pages.ProductsPage"
+             Title="Termékek listája">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto,Auto">
+        <HorizontalStackLayout Grid.Row="0" 
+                               Margin="10,10,0,10" 
+                               Spacing="10">
+            <Label x:Name="NameLabel" Text="Név:"></Label>
+            <Entry x:Name="NameEntry"
+               WidthRequest="100"
+               Text="{Binding FilterName}" />
+
+            <Label x:Name="BarcodeLabel" Text="Vonalkód:"></Label>
+            <Entry x:Name="BarcodeEntry"
+               WidthRequest="100"
+               Text="{Binding FilterBarcode}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout 
+            Grid.Row="1"
+            HorizontalOptions="Start"
+            Margin="10,10,0,10" 
+            Spacing="10">
+            <Button Text="Szűrés"
+                    Command="{Binding FilterCommand}" />
+
+            <Button Text="Szűrő mezők törlése"
+                    Command="{Binding CleanFilterCommand}" />
+        </HorizontalStackLayout>
+
+        <Grid Grid.Row="2"
+              Padding="10"
+              BackgroundColor="#404040"
+              ColumnSpacing="10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Text="Id" FontAttributes="Bold"/>
+            <Label Grid.Column="1" Text="Név" FontAttributes="Bold"/>
+            <Label Grid.Column="2" Text="Vonalkód" FontAttributes="Bold"/>
+            <Label Grid.Column="3" Text="Ár" FontAttributes="Bold"/>
+            <Label Grid.Column="4" Text="Készlet" FontAttributes="Bold"/>
+        </Grid>
+        <CollectionView
+            Grid.Row="3"
+            x:Name="ProductsCollectionView"
+            SelectionMode="Single"
+            ItemsSource="{Binding Products}"
+            SelectedItem="{Binding SelectedProduct}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnSpacing="10" Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="{Binding Id}" />
+                        <Label Grid.Column="1" Text="{Binding Name}" />
+                        <Label Grid.Column="2" Text="{Binding Barcode}" />
+                        <Label Grid.Column="3" Text="{Binding Price}" />
+                        <Label Grid.Column="4" Text="{Binding Quantity}">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding Quantity}"
+                                    Value="0">
+                                    <Setter Property="TextColor"
+                                        Value="Red" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+        <HorizontalStackLayout
+            Grid.Row="4"
+            HorizontalOptions="Center"
+            Margin="10,10,0,10"
+            Spacing="10">
+
+            <Button Text="Előző"
+                    Command="{Binding PreviousCommand}"/>
+
+            <Label x:Name="PageLabel" 
+                   Text="{Binding CurrentPage} "/>
+
+            <Button Text="Következő"
+                    Command="{Binding NextCommand}"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout
+            Grid.Row="5"
+            HorizontalOptions="Start"
+            Margin="10,10,0,10"
+            Spacing="10">
+
+            <Button Text="Felvétel"
+                    Command="{Binding AddNewProductCommand}"/>
+
+            <Button Text="Módosítás"
+                    Command="{Binding ModifyProductCommand}"/>
+        </HorizontalStackLayout>
+    </Grid>
+
+</ContentPage>
