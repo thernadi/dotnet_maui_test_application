@@ -35,6 +35,7 @@ A repository és service réteg megfelelő alapot biztosít arra, hogy az alkalm
 
 Lehetséges továbbfejlesztések
 -----------------------------
+- törlés funkció a listás felületre (logikai törlés)
 - naplózás (logging) bevezetése
 - hitelesítés és jogosultságkezelés
 - role alapú láthatóság és módosíthatóság
